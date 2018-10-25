@@ -8,13 +8,19 @@
         </div>
         <div class="month_select">
           <picker class="weui-btn" @change="_rangePickerChange" :range="rangePickerArray">
-            <span>{{rangePickerValue}}^</span>
+            <span>{{rangePickerValue}}
+              <img src="../../../static/images/down.png" class="down">
+            </span>
           </picker>
           <picker class="weui-btn" @change="_singlePickerChange" :range="singlePickerArray" v-if="rangePickerValue === '年'">
-            <span>{{singlePickerValue}}^</span>
+            <span>{{singlePickerValue}}
+              <img src="../../../static/images/down.png" class="down">
+            </span>
           </picker>
           <picker class="weui-btn" mode="multiSelector" @change="_multiPickerChange" :range="multiPickerArray" v-else>
-            <span>{{multiPickerValue}}^</span>          
+            <span>{{multiPickerValue}}
+              <img src="../../../static/images/down.png" class="down">
+            </span>          
           </picker>
         </div>
       </div>
@@ -30,7 +36,13 @@
       </div>
       <div>搜索</div>
     </div>
-    <div class="dataList"></div>
+    <div class="dataList">
+      <div v-if="rangePickerValue==='年'">
+        <div v-for="(item, index) in billList">
+        </div>
+      </div>
+      <div v-else></div>
+    </div>
   </div>
 </template>
 
@@ -39,14 +51,48 @@
 export default {
   data () {
     return {
-      userInfo: {},
       rangePickerArray: ['年', '月'],
       rangePickerValue: '月',
       singlePickerArray: ['2015', '2016', '2017', '2018', '2019'],
       singlePickerValue: '2018',
       multiPickerArray: [['2015', '2016', '2017', '2018', '2019'], ['01', '02', '03', '04', '05']],
       multiPickerValue: '2018-09',
-      activeFormality: 0
+      activeFormality: 0,
+      billList: [
+        {
+          month: '10月',
+          pay: '-220.00',
+          income: '58.00',
+          total: '-162.00',
+          bill: [
+            {
+              tag: '鞋服',
+              date: '10月24日',
+              icon: '../../static/images/calender.png',
+              money: '-90',
+              classificationId: '1',
+              billId: '0'
+            },
+            {
+              tag: '鞋服',
+              date: '10月24日',
+              icon: '../../static/images/calender.png',
+              money: '-90',
+              classificationId: '1',
+              billId: '1',
+              billTag: '去旅行'
+            },
+            {
+              tag: '鞋服',
+              date: '10月24日',
+              icon: '../../static/images/calender.png',
+              money: '-90',
+              classificationId: '1',
+              billId: '0'
+            }
+          ]
+        }
+      ]
     }
   },
 
@@ -54,18 +100,6 @@ export default {
   },
 
   methods: {
-    getUserInfo () {
-      // 调用登录接口
-      wx.login({
-        success: () => {
-          wx.getUserInfo({
-            success: (res) => {
-              this.userInfo = res.userInfo
-            }
-          })
-        }
-      })
-    },
     _rangePickerChange (e) {
       this.rangePickerValue = this.rangePickerArray[e.mp.detail.value]
     },
@@ -88,8 +122,8 @@ export default {
   computed: {
   },
   created () {
-    // 调用应用实例的方法获取全局数据
-    this.getUserInfo()
+  },
+  mounted () {
   }
 }
 </script>
@@ -117,6 +151,10 @@ export default {
       justify-content: center;
       .weui-btn{
         margin: 0;
+      }
+      .down{
+        width: 12px;
+        height: 12px;
       }
       span {
         border: 1px solid red;
@@ -152,7 +190,7 @@ export default {
       }
       span{
         box-sizing: border-box;
-        padding: 5px 10px;
+        padding: 5px 10px 6px 10px;
         font-size: 15px;
         height: 30px;
         line-height: 30px;

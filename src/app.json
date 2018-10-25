@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/login/main",
     "pages/index/main",
     "pages/circle/main",
     "pages/mine/main"
@@ -17,14 +18,20 @@
     "backgroundColor": "#fff",
     "list": [
       {
+        "iconPath": "/static/images/mainPage.png",
+        "selectedIconPath": "/static/images/mainPage.png",
         "pagePath": "pages/index/main",
         "text": "首页"
       },
       {
+        "iconPath": "/static/images/circle.png",
+        "selectedIconPath": "/static/images/circle.png",
         "pagePath": "pages/circle/main",
         "text": "圈子"
       },
       {
+        "iconPath": "/static/images/mine.png",
+        "selectedIconPath": "/static/images/mine.png",
         "pagePath": "pages/mine/main",
         "text": "我的"
       }
