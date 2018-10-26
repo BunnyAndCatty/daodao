@@ -7,17 +7,17 @@
           <div class="total_money">70</div>
         </div>
         <div class="month_select">
-          <picker class="weui-btn" @change="_rangePickerChange" :range="rangePickerArray">
+          <picker class="weui-btn" @change="rangePickerChange" :range="rangePickerArray">
             <span>{{rangePickerValue}}
               <img src="../../../static/images/down.png" class="down">
             </span>
           </picker>
-          <picker class="weui-btn" @change="_singlePickerChange" :range="singlePickerArray" v-if="rangePickerValue === '年'">
+          <picker class="weui-btn" @change="singlePickerChange" :range="singlePickerArray" v-if="rangePickerValue === '年'">
             <span>{{singlePickerValue}}
               <img src="../../../static/images/down.png" class="down">
             </span>
           </picker>
-          <picker class="weui-btn" mode="multiSelector" @change="_multiPickerChange" :range="multiPickerArray" v-else>
+          <picker class="weui-btn" mode="multiSelector" @change="multiPickerChange" :range="multiPickerArray" v-else>
             <span>{{multiPickerValue}}
               <img src="../../../static/images/down.png" class="down">
             </span>          
@@ -31,8 +31,8 @@
     <div class="action">
       <div>筛选</div>
       <div class="formality_select" >
-        <span @click="_selectFormality_list" :class="{activeFormality: activeFormality===0}">账单</span>
-        <span @click="_selectFormality_chart" :class="{activeFormality: activeFormality===1}">图表</span>
+        <span @click="selectFormality_list" :class="{activeFormality: activeFormality===0}">账单</span>
+        <span @click="selectFormality_chart" :class="{activeFormality: activeFormality===1}">图表</span>
       </div>
       <div>搜索</div>
     </div>
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import request from '../../api/request'
 
 export default {
   data () {
@@ -100,28 +101,34 @@ export default {
   },
 
   methods: {
-    _rangePickerChange (e) {
+    rangePickerChange (e) {
       this.rangePickerValue = this.rangePickerArray[e.mp.detail.value]
     },
-    _singlePickerChange (e) {
+    singlePickerChange (e) {
       this.singlePickerValue = this.singlePickerArray[e.mp.detail.value]
     },
-    _multiPickerChange (e) {
+    multiPickerChange (e) {
       this.multiPickerValue = this.multiPickerArray[0][e.mp.detail.value[0]] + '-' + this.multiPickerArray[1][e.mp.detail.value[1]]
     },
-    _selectFormality_list (e) {
+    selectFormality_list (e) {
       //  获取账单
       this.activeFormality = 0
     },
-    _selectFormality_chart () {
+    selectFormality_chart (e) {
       //  获取图表
       this.activeFormality = 1
+    },
+    _getRecordLlist () {
+      request({
+        url: '/cashbook/record/list'
+      })
     }
   },
 
   computed: {
   },
   created () {
+    this._getRecordLlist()
   },
   mounted () {
   }
