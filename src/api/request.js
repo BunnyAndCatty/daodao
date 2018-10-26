@@ -17,7 +17,7 @@ const ajax = function (configs) {
     var token = wx.getStorageSync('token')
     console.log(token)
     if (token) {
-      let headers = Object.assign({'Content-Type': 'application/jsoncharset=UTF-8', 'token': token}, configs.header)
+      let headers = Object.assign({}, {'Content-Type': 'application/jsoncharset=UTF-8', 'token': token}, configs.header)
       return axios({
         method: configs.method || 'GET',
         url: configs.url || '',
