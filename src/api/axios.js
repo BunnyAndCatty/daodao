@@ -5,8 +5,8 @@ const axios = function (config) {
       ...config,
       url: 'https://api.zh-yu.com' + config.url,
       success: res => {
-        if (res.statusCode < 200 || res.statusCode > 300) {
-          return reject(res.data || {})
+        if (res.code < 200 || res.code > 300) {
+          return reject(res || {})
         }
         return resolve(res.data || {})
       },
