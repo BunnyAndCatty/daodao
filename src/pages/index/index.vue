@@ -9,17 +9,17 @@
         <div class="month_select">
           <picker class="weui-btn" @change="rangePickerChange" :range="rangePickerArray">
             <span>{{rangePickerValue}}
-              <img src="../../../static/images/down.png" class="down">
+              <img src="../../../static/images/down.png" class="img_down">
             </span>
           </picker>
           <picker class="weui-btn" @change="singlePickerChange" :range="singlePickerArray" v-if="rangePickerValue === '年'">
             <span>{{singlePickerValue}}
-              <img src="../../../static/images/down.png" class="down">
+              <img src="../../../static/images/down.png" class="img_down">
             </span>
           </picker>
           <picker class="weui-btn" mode="multiSelector" @change="multiPickerChange" :range="multiPickerArray" v-else>
             <span>{{multiPickerValue}}
-              <img src="../../../static/images/down.png" class="down">
+              <img src="../../../static/images/down.png" class="img_down">
             </span>          
           </picker>
         </div>
@@ -37,17 +37,57 @@
       <div>搜索</div>
     </div>
     <div class="dataList">
-      <div v-if="rangePickerValue==='年'">
-        <div v-for="(item, index) in billList">
+      <div v-if="rangePickerValue==='年'" class="month_card">
+        <div class="month_title">
+          <span>
+            <img src="../../../static/images/calender.png" class="img_calender">
+            <span>10月</span>
+          </span>
+          <span>
+            <div>花费</div>
+            <div class="number">253.00</div>
+          </span>
+          <span>
+            <div>收入</div>
+            <div class="number">58.00</div>
+          </span>
+          <span>
+            <div>结余</div>
+            <div class="number">-195.00</div>
+          </span>
+          <img src="../../../static/images/down.png" class="img_down" @click="show_month_detail">
+        </div>
+        <div v-if="month_detail" class="month_detail">
+          <list-item></list-item> 
+          <list-item></list-item> 
+          <list-item></list-item> 
         </div>
       </div>
-      <div v-else></div>
+      <div v-else class="date_card">
+        <div class="date_title">
+          <span>
+            <img src="../../../static/images/calender.png" class="img_calender">
+            <span>10月25日</span>
+          </span>
+          <span>
+            <span>花费</span>
+            <span class="number">8.00</span>
+          </span>
+        </div>
+        <div class="date_detail">
+          <list-item></list-item>
+          <list-item></list-item>  
+          <list-item></list-item>
+        </div>
+      </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import request from '../../api/request'
+import listItem from '../../components/listItem'
 
 export default {
   data () {
@@ -93,11 +133,13 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      month_detail: true
     }
   },
 
   components: {
+    listItem
   },
 
   methods: {
@@ -122,6 +164,9 @@ export default {
       request({
         url: '/cashbook/record/list'
       })
+    },
+    show_month_detail () {
+      this.month_detail = !(this.month_detail)
     }
   },
 
@@ -137,7 +182,7 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  padding: 10px 0;
+  padding: 10px 0 0 0;
   height: 100vh;
   overflow: scroll;
   justify-content: flex-start;
@@ -159,7 +204,7 @@ export default {
       .weui-btn{
         margin: 0;
       }
-      .down{
+      .img_down{
         width: 12px;
         height: 12px;
       }
@@ -180,6 +225,7 @@ export default {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
+    margin-bottom: 5px;
     div{
       height: 30px;
       line-height: 30px;
@@ -204,6 +250,48 @@ export default {
       }
       .activeFormality{
         background-color: orange;
+      }
+    }
+  }
+  .dataList{
+    width: 100%;
+    height: 100%;
+    background-color: #eeeeee;
+    overflow: scroll;
+    .img_calender{
+      width: 20px;
+      height: 20px;
+    }
+    .img_down{
+      width: 12px;
+      height: 12px;
+    }
+    .month_card, .date_card{
+      background-color: #ffffff;
+      margin-bottom: 10px;
+    }
+    .month_title, .date_title{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      span:nth-child(1){
+        display: flex;
+        align-items: center;
+        img{
+          margin-right: 10px;
+        }
+      }
+    }
+    .month_card{
+      .month_title{
+        .img_down{
+          width: 20px;
+          height: 20px;
+        }
+        .number{
+          margin-top: 1px;
+        }
       }
     }
   }
