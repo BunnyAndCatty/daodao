@@ -29,8 +29,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin:30px 10px;
-
+  padding: 20px 10px;
+  border-top: 1px solid #eee;
   .left{
     display: flex;
     justify-content: space-between;
@@ -43,12 +43,12 @@ export default {
       margin-left: 10px;
       .circle{
         border: 1px solid red;
-        padding: 1px 10px;
+        padding: 1px 7px;
         margin-left: 10px;
-        border-radius: 20px;
+        border-radius: 50px;
       }
       .dateAndDesc{
-        margin-top: 5px;
+        margin-top: 10px;
         .date{
           margin-right: 10px;
         }

@@ -61,7 +61,11 @@
           <div v-if="month_detail" class="month_detail">
             <list-item></list-item> 
             <list-item></list-item> 
-            <list-item></list-item> 
+            <list-item></list-item>
+            <list-item></list-item>
+            <list-item></list-item>
+            <list-item></list-item>
+            <list-item></list-item>
           </div>
         </div>
         <div v-else class="date_card">
@@ -83,7 +87,7 @@
         </div>
       </div>
       <div v-if="activeFormality===1">
-        
+
       </div>
     </div>
     </div>
@@ -279,7 +283,10 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 10px;
+      padding: 10px;
+      span{
+        text-align: center;
+      }
       span:nth-child(1){
         display: flex;
         align-items: center;
