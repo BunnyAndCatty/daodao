@@ -37,50 +37,55 @@
       <div>搜索</div>
     </div>
     <div class="dataList">
-      <div v-if="rangePickerValue==='年'" class="month_card">
-        <div class="month_title">
-          <span>
-            <img src="../../../static/images/calender.png" class="img_calender">
-            <span>10月</span>
-          </span>
-          <span>
-            <div>花费</div>
-            <div class="number">253.00</div>
-          </span>
-          <span>
-            <div>收入</div>
-            <div class="number">58.00</div>
-          </span>
-          <span>
-            <div>结余</div>
-            <div class="number">-195.00</div>
-          </span>
-          <img src="../../../static/images/down.png" class="img_down" @click="show_month_detail">
+      <div v-if="activeFormality===0">
+        <div v-if="rangePickerValue==='年'" class="month_card">
+          <div class="month_title">
+            <span>
+              <img src="../../../static/images/calender.png" class="img_calender">
+              <span>10月</span>
+            </span>
+            <span>
+              <div>花费</div>
+              <div class="number">253.00</div>
+            </span>
+            <span>
+              <div>收入</div>
+              <div class="number">58.00</div>
+            </span>
+            <span>
+              <div>结余</div>
+              <div class="number">-195.00</div>
+            </span>
+            <img src="../../../static/images/down.png" class="img_down" @click="show_month_detail">
+          </div>
+          <div v-if="month_detail" class="month_detail">
+            <list-item></list-item> 
+            <list-item></list-item> 
+            <list-item></list-item> 
+          </div>
         </div>
-        <div v-if="month_detail" class="month_detail">
-          <list-item></list-item> 
-          <list-item></list-item> 
-          <list-item></list-item> 
+        <div v-else class="date_card">
+          <div class="date_title">
+            <span>
+              <img src="../../../static/images/calender.png" class="img_calender">
+              <span>10月25日</span>
+            </span>
+            <span>
+              <span>花费</span>
+              <span class="number">8.00</span>
+            </span>
+          </div>
+          <div class="date_detail">
+            <list-item></list-item>
+            <list-item></list-item>  
+            <list-item></list-item>
+          </div>
         </div>
       </div>
-      <div v-else class="date_card">
-        <div class="date_title">
-          <span>
-            <img src="../../../static/images/calender.png" class="img_calender">
-            <span>10月25日</span>
-          </span>
-          <span>
-            <span>花费</span>
-            <span class="number">8.00</span>
-          </span>
-        </div>
-        <div class="date_detail">
-          <list-item></list-item>
-          <list-item></list-item>  
-          <list-item></list-item>
-        </div>
+      <div v-if="activeFormality===1">
+        
       </div>
-      </div>
+    </div>
     </div>
   </div>
 </template>
@@ -98,7 +103,7 @@ export default {
       singlePickerValue: '2018',
       multiPickerArray: [['2015', '2016', '2017', '2018', '2019'], ['01', '02', '03', '04', '05']],
       multiPickerValue: '2018-09',
-      activeFormality: 0,
+      activeFormality: 1,
       billList: [
         {
           month: '10月',
