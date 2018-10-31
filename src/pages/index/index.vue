@@ -86,8 +86,8 @@
           </div>
         </div>
       </div>
-      <div v-if="activeFormality===1">
-
+      <div v-if="activeFormality===1" class="canvasContainer">
+        <canvas canvas-id="canvas" style="width: 320px; height: 320px;" @click="canvasTab"></canvas>
       </div>
     </div>
     </div>
@@ -97,6 +97,7 @@
 <script>
 import request from '../../api/request'
 import listItem from '../../components/listItem'
+var Wxcharts = require('../../utils/wxcharts.js')
 
 export default {
   data () {
@@ -167,7 +168,53 @@ export default {
     },
     selectFormality_chart (e) {
       //  获取图表
+      /* eslint-disable no-new */
+      global.wxcharts = new Wxcharts({
+        canvasId: 'canvas',
+        type: 'ring',
+        // 副标题
+        title: {
+          name: '收入',
+          fontSize: 14,
+          color: 'black'
+        },
+        // 主标题
+        subtitle: {
+          name: '花费',
+          fontSize: 14,
+          color: 'red'
+        },
+        extra: {
+          ringWidth: 20
+        },
+        series: [{
+          name: '成交量1',
+          data: 15
+        }, {
+          name: '成交量2',
+          data: 35
+        }, {
+          name: '成交量3',
+          data: 78
+        }, {
+          name: '成交量4',
+          data: 63
+        }],
+        width: 320,
+        height: 320,
+        dataLabel: true
+      })
       this.activeFormality = 1
+    },
+    canvasTab () {
+      global.wxcharts.updateData({
+        title: {
+          name: '123'
+        },
+        subtitle: {
+          name: '124'
+        }
+      })
     },
     _getRecordLlist () {
       request({
@@ -185,6 +232,7 @@ export default {
     this._getRecordLlist()
   },
   mounted () {
+    this.activeFormality = 1
   }
 }
 </script>
@@ -305,6 +353,15 @@ export default {
           margin-top: 1px;
         }
       }
+    }
+    canvas{
+      display: block !important;
+    }
+    .canvasContainer{
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 calc(~'50% - 160px');
+      overflow-x: hidden;
     }
   }
 }

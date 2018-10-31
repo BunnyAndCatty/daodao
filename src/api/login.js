@@ -3,6 +3,7 @@ const login = function () {
   return new Promise((resolve, reject) => {
     wx.login({
       success (res) {
+        console.log(res)
         if (res.code) {
           axios({
             url: '/cashbook/account/login',
