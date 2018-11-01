@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/login/main",
     "pages/index/main",
     "pages/circle/main",
     "pages/mine/main"
