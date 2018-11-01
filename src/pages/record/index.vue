@@ -1,5 +1,12 @@
 <template>
-  <div >
+  <div class="circle_container">
+    <div v-if="!already_get_setting" class="not_get_setting">
+      <div class="tips">请先登录哦</div>
+      <button open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">立即登录</button>
+      <button open-type="openSetting">打开授权设置页</button>
+    </div>
+    <div v-else>
+    </div>
   </div>
 </template>
 

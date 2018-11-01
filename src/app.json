@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/record/main",
     "pages/circle/main",
     "pages/mine/main"
   ],
@@ -21,6 +22,12 @@
         "selectedIconPath": "/static/images/mainPage.png",
         "pagePath": "pages/index/main",
         "text": "首页"
+      },
+      {
+        "iconPath": "/static/images/record.png",
+        "selectedIconPath": "/static/images/record.png",
+        "pagePath": "pages/record/main",
+        "text": "记账"
       },
       {
         "iconPath": "/static/images/circle.png",
