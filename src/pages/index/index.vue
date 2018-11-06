@@ -110,7 +110,7 @@ var Wxcharts = require('../../utils/wxcharts.js')
 export default {
   data () {
     return {
-      already_get_setting: false,
+      already_get_setting: '',
       rangePickerArray: ['年', '月'],
       rangePickerValue: '月',
       singlePickerArray: ['2015', '2016', '2017', '2018', '2019'],
