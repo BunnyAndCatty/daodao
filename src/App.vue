@@ -1,4 +1,5 @@
 <script>
+
 export default {
   created () {
     // 调用API从本地缓存中获取数据
@@ -12,6 +13,7 @@ export default {
 </script>
 
 <style>
+@import'../src/assets/css/iconfont.css';
 .container {
   height: 100%;
   display: flex;

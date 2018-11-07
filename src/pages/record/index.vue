@@ -12,15 +12,28 @@
           <span @click="select_income" :class="{activeType: activeType===1}">收入</span>
         </div>
         <input class="number" v-model="number"></input>
-      </div>  
+      </div>
+      <div class="tags">
+        <scroll-view scroll-x="true" class="scroll-view_H">
+          <div class="scroll-view_H_item" v-for="(item, index) in icon_container_item_array">
+            <div class="iconContainer">
+              <div class="icon" v-for="(icon_item, icon_index) in item">
+                <div :class="['iconfont', 'icon_img', 'icon-'+icon_item.icon]"></div>
+                <div class="icon_desc">{{icon_item.desc}}</div>
+              </div>
+            </div>
+          </div>
+        </scroll-view>
+      </div>
+      <numberKeyBoard @clickKeyboard="clickKeyboard"></numberKeyBoard>
     </div>
-    <numberKeyBoard @clickKeyboard="clickKeyboard"></numberKeyBoard>
   </div>
 </template>
 
 <script>
 import getSetting from '../../utils/getSetting'
 import numberKeyBoard from '../../components/numberKeyboard'
+
 export default {
   components: {
     numberKeyBoard
@@ -30,11 +43,68 @@ export default {
     return {
       already_get_setting: '',
       activeType: 0,
-      number: '0.00'
+      number: '0.00',
+      icon_array: [
+        {
+          icon: 'zuofan',
+          desc: '餐饮'
+        },
+        {
+          icon: 'gouwuche',
+          desc: '购物'
+        },
+        {
+          icon: 'caomei',
+          desc: '水果'
+        },
+        {
+          icon: 'yinliao',
+          desc: '饮料'
+        },
+        {
+          icon: 'gouwo',
+          desc: '住宿'
+        },
+        {
+          icon: 'zihangche',
+          desc: '运动'
+        },
+        {
+          icon: 'diandi',
+          desc: '医疗'
+        },
+        {
+          icon: 'shanshui',
+          desc: '旅行'
+        },
+        {
+          icon: 'shujia',
+          desc: '学习'
+        },
+        {
+          icon: 'shouji',
+          desc: '通讯'
+        },
+        {
+          icon: 'xiaoqiche',
+          desc: '交通'
+        },
+        {
+          icon: 'wenhao',
+          desc: '其他'
+        }
+      ]
     }
   },
 
   computed: {
+    icon_container_item_array: function () {
+      let array = []
+      for (let i = 0; i < this.icon_array.length; i = i + 8) {
+        array.push(this.icon_array.slice(i, i + 8))
+      }
+      return array
+    }
   },
 
   methods: {
@@ -133,6 +203,34 @@ export default {
       font-size: 20px;
       text-align: center;
       border-bottom: 1px solid black;
+    }
+  }
+  .tags{
+    .scroll-view_H{
+      white-space: nowrap;
+      .scroll-view_H_item{
+        width: 100%;
+        display: inline-block;
+        .iconContainer{
+          width: 100%;
+          height: 130px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around; 
+          .icon{
+            width: 25%;
+            text-align: center;
+            .icon_img{
+              font-size: 40px;
+            }
+            .icon_desc{
+              font-size: 12px;
+              text-align: center;
+            }
+          }
+          
+        }
+      }
     }
   }
 }
