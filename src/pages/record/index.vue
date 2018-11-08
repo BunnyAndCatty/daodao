@@ -46,6 +46,7 @@
 <script>
 import getSetting from '../../utils/getSetting'
 import numberKeyBoard from '../../components/numberKeyboard'
+import api from '../../api/record'
 
 export default {
   components: {
@@ -54,7 +55,7 @@ export default {
 
   data () {
     return {
-      already_get_setting: '',
+      already_get_setting: false,
       activeType: 0,
       number: '0.00',
       tags_array: [
@@ -151,6 +152,10 @@ export default {
           .then(() => {
             this.already_get_setting = true
             // 拉取数据
+            api.getTags()
+              .then((res) => {
+                console.log(res)
+              })
           })
       }
     },
@@ -199,7 +204,13 @@ export default {
     })
     getSetting()
       .then(() => {
+        console.log('鉴权通过')
         this.already_get_setting = true
+        console.log(api.getTags)
+        api.getTags()
+          .then((res) => {
+            console.log(res)
+          })
       })
       .catch()
   }

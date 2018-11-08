@@ -15,13 +15,14 @@ import login from './login'
 const ajax = function (configs) {
   try {
     var token = wx.getStorageSync('token')
-    console.log(token)
     if (token) {
-      let headers = Object.assign({}, {'Content-Type': 'application/jsoncharset=UTF-8', 'token': token}, configs.header)
+      console.log('123', token)
+      let header = Object.assign({}, {'token': token}, configs.header)
+      console.log(header)
       return axios({
         method: configs.method || 'GET',
         url: configs.url || '',
-        headers: headers,
+        header: header,
         dataType: configs.dataType || 'json',
         data: configs.data || {}
       })
@@ -49,6 +50,7 @@ const ajax = function (configs) {
 function request (configs) {
   return checkSession(ajax, login)
     .then(() => {
+      console.log('checkssion成功')
       return ajax(configs)
     })
     .catch((e) => {

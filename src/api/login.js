@@ -6,15 +6,15 @@ const login = function () {
         console.log(res)
         if (res.code) {
           axios({
-            url: '/cashbook/account/login',
+            url: '/daodao/account/login',
             data: {
               code: res.code
             }
           })
             .then(res => {
               // 获取的token,后续请求需要携带
-              // token = res.data
-              wx.setStorageSync('token', res.data)
+              console.log(res)
+              wx.setStorageSync('token', res.token)
               resolve()
             })
         } else {

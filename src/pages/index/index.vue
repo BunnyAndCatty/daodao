@@ -103,8 +103,8 @@
 
 <script>
 import getSetting from '../../utils/getSetting'
-import request from '../../api/request'
 import listItem from '../../components/listItem'
+import api from '../../api/index'
 var Wxcharts = require('../../utils/wxcharts.js')
 
 export default {
@@ -169,6 +169,7 @@ export default {
           .then(() => {
             this.already_get_setting = true
             // 拉取数据
+            api.getRecordList()
           })
       }
     },
@@ -235,11 +236,6 @@ export default {
         }
       })
     },
-    _getRecordLlist () {
-      request({
-        url: '/cashbook/record/list'
-      })
-    },
     show_month_detail () {
       this.month_detail = !(this.month_detail)
     }
@@ -248,7 +244,6 @@ export default {
   computed: {
   },
   created () {
-    this._getRecordLlist()
   },
   mounted () {
     this.activeFormality = 0
@@ -257,6 +252,7 @@ export default {
     getSetting()
       .then(() => {
         this.already_get_setting = true
+        api.getRecordList()
       })
       .catch()
   }
