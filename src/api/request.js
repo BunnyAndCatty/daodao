@@ -16,9 +16,7 @@ const ajax = function (configs) {
   try {
     var token = wx.getStorageSync('token')
     if (token) {
-      console.log('123', token)
       let header = Object.assign({}, {'token': token}, configs.header)
-      console.log(header)
       return axios({
         method: configs.method || 'GET',
         url: configs.url || '',
@@ -27,7 +25,7 @@ const ajax = function (configs) {
         data: configs.data || {}
       })
         .then(res => {
-          if (res.status === 200) {
+          if (res.statusCode === 200) {
             return res.data
           }
         })
@@ -40,6 +38,11 @@ const ajax = function (configs) {
           }
           console.error(error)
         })
+    } else {
+      return login()
+        .then(() => {
+          return ajax(configs)
+        })
     }
   } catch (e) {
     // Do something when catch error
@@ -50,7 +53,6 @@ const ajax = function (configs) {
 function request (configs) {
   return checkSession(ajax, login)
     .then(() => {
-      console.log('checkssion成功')
       return ajax(configs)
     })
     .catch((e) => {

@@ -154,7 +154,7 @@ export default {
             // 拉取数据
             api.getTags()
               .then((res) => {
-                console.log(res)
+                // console.log(res)
               })
           })
       }
@@ -204,12 +204,10 @@ export default {
     })
     getSetting()
       .then(() => {
-        console.log('鉴权通过')
         this.already_get_setting = true
-        console.log(api.getTags)
         api.getTags()
           .then((res) => {
-            console.log(res)
+            // console.log(res)
           })
       })
       .catch()
